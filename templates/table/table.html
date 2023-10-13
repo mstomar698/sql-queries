@@ -1,25 +1,89 @@
 {% extends 'base.html' %} {% block body %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-{% if message %}
-<div id="alert" class="alert" style="color: red; border: red solid 2px">
-  {{ message }}
-</div>
-<script type="text/javascript">
-  setTimeout(function () {
-    $('#alert').alert('close');
-  }, 8000);
-</script>
-{% endif %}
-
+<style>
+  table,
+  th,
+  td {
+    border: 0.5px solid rgb(109, 108, 108);
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+  }
+  a {
+    text-decoration: none;
+    color: blue;
+  }
+</style>
 <div>
   <center>
     <div style="background-color: white; padding: 20px; width: 90%">
       <center>
-        <h1>
-          <center>
-            <h2>DashBoard Home</h2>
-          </center>
-        </h1>
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            min-height: 100vh;
+            gap: 8px;
+            padding: 4px;
+            overflow-x: scroll;
+          "
+        >
+          <table style="width: 100%">
+            <thead>
+              <tr>
+                <th>S.NO</th>
+                <th>Student Name</th>
+                <th>Teachers Assigned</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for student_name, teachers in students_and_teachers.items %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>
+                  <a href="/table/v1/data/{{ student_name }}/"
+                    >{{ student_name }}</a
+                  >
+                </td>
+                <td>
+                  {% for teacher in teachers %}
+                    <a href="/table/v1/data/{{ teacher }}/">{{ teacher }}</a>
+                    {% if not forloop.last %}, 
+                    {% endif %} 
+                  {% endfor %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <table style="width: 100%">
+            <thead>
+              <tr>
+                <th>S.NO</th>
+                <th>Teacher Name</th>
+                <th>Students Assigned</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for teacher_name, students in teachers_and_students.items %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>
+                  <a href="/table/v1/data/{{ teacher_name }}/">{{ teacher_name }}</a>
+                </td>
+                <td>
+                  {% for Student in students %}
+                    <a href="/table/v1/data/{{ Student }}/">{{ Student }}</a>
+                    {% if not forloop.last %}, 
+                    {% endif %} 
+                  {% endfor %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </center>
     </div>
   </center>

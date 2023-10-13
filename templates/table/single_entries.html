@@ -1,0 +1,70 @@
+{% extends 'base.html' %} {% block body %}
+<style>
+  table,
+  th,
+  td {
+    border: 0.5px solid rgb(109, 108, 108);
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+  }
+  a {
+    text-decoration: none;
+    color: blue;
+  }
+</style>
+<div>
+  <center>
+    <div style="background-color: white; padding: 20px; width: 90%">
+      {% if teacher_name %}
+      <h3 style="margin-bottom: 16px">All Students for {{ teacher_name }}</h3>
+      <table style="width: 100%">
+        <thead>
+          <tr>
+            <th>S.NO</th>
+            <th>Student Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in related_students %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+              <a
+                href="/table/v1/certificates/teacher/{{ student.name }}/{{teacher_name}}"
+                >{{ student.name }}</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% elif student_name %}
+      <h3 style="margin-bottom: 16px">All Teachers for {{ student_name }}</h3>
+      <table style="width: 100%">
+        <thead>
+          <tr>
+            <th>S.NO</th>
+            <th>Teacher Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for teacher in related_teachers %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+              <a
+                href="/table/v1/certificates/student/{{ teacher.name }}/{{student_name}}"
+                >{{ teacher.name }}</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+    </div>
+  </center>
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% if teacher_name and student_name %}
+<div style="text-align: center; padding-top: 72px;">
+  <h3 style="font-size: xx-large;">{{ teacher_name }}</h3>
+  <p style="font-size: x-large;">Certifies that</p>
+  <h5 style="font-size: xx-large;">{{ student_name }}</h5>
+  <p style="font-size: large;">has completed their assignment on {{date}}</p>
+  <div style="margin-top: 20px; font-size: x-large;">
+    Valid till: {{valid_till}}
+    <br/>
+    certificate id: {{certificate_id}}
+  </div>
+</div>
+{% endif %}

@@ -1,26 +1,49 @@
 {% extends 'base.html' %} {% block body %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-{% if message %}
-<div id="alert" class="alert" style="color: red; border: red solid 2px">
-  {{ message }}
-</div>
-<script type="text/javascript">
-  setTimeout(function () {
-    $('#alert').alert('close');
-  }, 8000);
-</script>
-{% endif %}
-
-<div>
+<div style="min-height: 100vh;">
   <center>
+    <h1 style="margin-top: 20px">Get your certificate</h1>
     <div style="background-color: white; padding: 20px; width: 90%">
-      <center>
-        <h1>
-          <center>
-            <h2>Certificates Home</h2>
-          </center>
-        </h1>
-      </center>
+      <div>
+        <form
+          action="/table/v1/certificates/form/"
+          method="GET"
+          style="
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 8px;
+          "
+        >
+          <input
+            type="text"
+            name="input_teacher_name"
+            placeholder="Teacher Name"
+          />
+          <input
+            type="text"
+            name="input_student_name"
+            placeholder="Student Name"
+          />
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <h1 style="margin-top: 20px">Validate your certificate</h1>
+    <div style="background-color: white; padding: 20px; width: 90%">
+      <form action="/table/v1/certificates/validate/" method="POST">
+        {% csrf_token %}
+        <label for="certificateId">Certificate ID:</label>
+        <input type="text" id="certificateId" name="certificateId" required />
+        <button type="submit" id="validateBtn">Validate</button>
+      </form>
+      {%if certificate_id %}
+        {% if is_valid %}
+        <p style="color: green; margin-top: 10px;"> Your certificate with {{certificate_id}} is valid till {{valid_till}}</p>
+        {% else %}
+        <p style="color: red; margin-top: 10px;"> Your certificate with {{certificate_id}}'s validation has expired on {{valid_till}}</p>
+        {% endif %}
+      {% endif %}
     </div>
   </center>
 </div>
