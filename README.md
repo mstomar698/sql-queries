@@ -21,7 +21,7 @@ python manage.py migrate
 # create super or register once server starts
 python manage.py createsuperuser
 # insert demo data
-python manage.py isnert_json_data
+python manage.py insert_json_data
 # run server
 python manage.py runserver
 ```
